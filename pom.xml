@@ -40,7 +40,20 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>sn.isi.l3gl.core</groupId>
+			<artifactId>product-core</artifactId>
+			<version>0.3.0</version>
+		</dependency>
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>nexus-releases</id>
+			<url>http://localhost:8081/repository/maven-releases/</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
