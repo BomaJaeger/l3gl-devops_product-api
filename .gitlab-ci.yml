@@ -3,6 +3,15 @@ stages:
   - build
   - docker
 
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+before_script:
+  - git clone https://github.com/BomaJaeger/l3gl-devops_product-core.git
+  - cd l3gl-devops_product-core
+  - mvn clean install -DskipTests
+  - cd ..
+
 test:
   stage: test
   image: maven:3.9.6-eclipse-temurin-17
