@@ -6,23 +6,25 @@ stages:
 variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
 
-before_script:
-  - git clone https://github.com/BomaJaeger/l3gl-devops_product-core.git
-  - cd l3gl-devops_product-core
-  - mvn clean install -DskipTests
-  - cd ..
+cache:
+  paths:
+    - .m2/repository
 
 test:
   stage: test
   image: maven:3.9.6-eclipse-temurin-17
   script:
-    - mvn test
+    - git clone https://github.com/BomaJaeger/l3gl-devops_product-core.git
+    - cd l3gl-devops_product-core && mvn clean install -DskipTests -Dmaven.repo.local=../.m2/repository && cd ..
+    - mvn test -Dmaven.repo.local=.m2/repository
 
 build:
   stage: build
   image: maven:3.9.6-eclipse-temurin-17
   script:
-    - mvn clean package -DskipTests
+    - git clone https://github.com/BomaJaeger/l3gl-devops_product-core.git
+    - cd l3gl-devops_product-core && mvn clean install -DskipTests -Dmaven.repo.local=../.m2/repository && cd ..
+    - mvn clean package -DskipTests -Dmaven.repo.local=.m2/repository
   artifacts:
     paths:
       - target/*.jar
